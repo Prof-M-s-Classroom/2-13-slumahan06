@@ -82,9 +82,13 @@ public:
 
     void dellast() {
         Node<T> *temp = head;
-        while (temp->next!=NULL)
+        Node<T> *deleteThis = temp->next;
+        for (int i = 0; i < length - 2; i++) {
             temp = temp->next;
-        delete temp;
+            deleteThis = deleteThis->next;
+        }
+        temp->next = nullptr;
+        delete deleteThis;
         length--;
     }
 
@@ -102,7 +106,6 @@ public:
             Node<T>* deleteThis = temp->next;
 
             temp->next = temp->next->next;
-            //temp = temp -> next;
             delete deleteThis;
         }
 
@@ -167,25 +170,28 @@ int main() {
 
     student *s4 = new student("D", 23);
     student *s5 = new student("E", 24);
+    student *s6 = new student("F", 25);
 
     LinkedList<student> *ll = new LinkedList<student>(s1);
     ll->add(s2);
-    ll->addhead(s3);
+    ll->addhead(s3); // C A B
     ll->print();
-    ll->delfirst();
+    ll->delfirst(); // A B
     ll->print();
-    /*
-    ll->dellast();
-    ll->deleteNode(1);
+
+    ll->dellast(); // A
     ll->print();
-    */
+
+
+
     ll->add(s4);
     ll->add(s5);
+    ll->add(s6); // A D E F
     ll->print();
-    ll->deleteNode(2);
-    ll->print(); // A B E
+    ll->deleteNode(2); // A D F
+    ll->print();
 
     ll->reverselist();
-    ll->print(); // E B A
+    ll->print(); // F D A
 
 }
